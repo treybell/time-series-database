@@ -1,0 +1,5 @@
+agent
+*.o
+build/
+.vscode/
+.DS_Store
