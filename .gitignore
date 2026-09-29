@@ -3,3 +3,4 @@ agent
 build/
 .vscode/
 .DS_Store
+main
