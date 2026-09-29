@@ -3,27 +3,49 @@
 #include <string>
 #include <sstream>
 
-int main() {
+struct MemoryStats {
+    long totalKb = -1;
+    long availableKb = -1;
+};
+
+MemoryStats readMemoryKb() {
+    MemoryStats stats{};
+    
     std::ifstream info("/proc/meminfo");
 
     if(!info.is_open()) {
         std::cerr << "Failed to open /proc/meminfo" << std::endl;
-        return 1;
+        return MemoryStats{};
     }
 
     std::string line;
-    std::string total;
-    std::string available;
+    std::string label;
+    
 
     while (std::getline(info, line)) {
         if (line.starts_with("MemTotal:")) {
-            total = line;
+            std::stringstream stream(line);
+            stream >> label >> stats.totalKb;
         }
         if (line.starts_with("MemAvailable:")) {
-            available = line;
+            std::stringstream stream(line);
+            stream >> label >> stats.availableKb;
         }
     }
+
+
+    return stats;
     
+   
+}
+
+
+
+int main() {
+    
+    MemoryStats stats = readMemoryKb();
+
+    std::cout << "usedMb:" << (stats.totalKb - stats.availableKb) / 1024 << "\n";
 
     return 0;
 }
