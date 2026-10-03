@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <chrono>
-#include<thread>
+#include <thread>
 #include "metrics.hpp"
 
 //need to add checks and throws later
@@ -13,7 +13,7 @@ CpuStats readCpuTimes() {
     std::ifstream info("/proc/stat");
 
     if (!info.is_open()) {
-        std::cerr << "Failed to open /proc/stat" << std::endl;
+        std::cerr << "Failed to open /proc/stat" << "\n";
         return CpuStats{};
     }
 
@@ -74,7 +74,7 @@ MemoryStats readMemoryKb() {
     std::ifstream info("/proc/meminfo");
 
     if(!info.is_open()) {
-        std::cerr << "Failed to open /proc/meminfo" << std::endl;
+        std::cerr << "Failed to open /proc/meminfo" << "\n";
         return MemoryStats{};
     }
 
